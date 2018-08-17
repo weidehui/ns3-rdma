@@ -54,11 +54,18 @@ PointToPointChannel::PointToPointChannel()
   :
     Channel (),
     m_delay (Seconds (0.)),
-    m_nDevices (0)
+    m_nDevices (0),
+    CECount(0)
 {
   NS_LOG_FUNCTION_NOARGS ();
+   dretimer();
 }
-
+//定时器
+void 
+PointToPointChannel::dretimer(){
+  CECount=CECount*alpha;
+ Simulator::Schedule(Seconds(0.1),&PointToPointChannel::dretimer,this);
+}
 void
 PointToPointChannel::Attach (Ptr<PointToPointNetDevice> device)
 {
