@@ -210,18 +210,18 @@ class Packet : public SimpleRefCount<Packet>
 public:
 
 
-	//yibo
-	/*
-	inline void Unref (void) const
-	{
-		m_count--;
-		if (m_count == 0)
-		{
-			//std::cout<<"TEST\n";
-			//DELETER::Delete (static_cast<T*> (const_cast<SimpleRefCount *> (this)));
-		}
-	}
-	*/
+  //yibo
+  /*
+  inline void Unref (void) const
+  {
+    m_count--;
+    if (m_count == 0)
+    {
+      //std::cout<<"TEST\n";
+      //DELETER::Delete (static_cast<T*> (const_cast<SimpleRefCount *> (this)));
+    }
+  }
+  */
 
   /**
    * Create an empty packet with a new uid (as returned
@@ -571,6 +571,22 @@ public:
    * impetus to fix this general issue. */
   void SetNixVector (Ptr<NixVector>);
   Ptr<NixVector> GetNixVector (void) const; 
+  //ÉèÖÃ²âÁ¿µÄÓµÈû³Ì¶È
+  void SetCE(float cost);
+  //»ñÈ¡²âÁ¿µÄÓµÈû³Ì¶È
+  float GetCE();
+  //ÉèÖÃ²âÁ¿µÄÂ·¾¶
+  void SetLBTag(uint32_t LBTag);
+  uint32_t GetLBTag();
+  //ÉèÖÃÉÓ´øµÄÂ·¾¶
+  void SetFBPath(uint32_t Path);
+  uint32_t GetFBPath();
+  //ÉèÖÃÉÓ´øµÄÓÃÓµÈû³Ì¶È
+  void SetFBMetric(float Metric);
+  float GetFBMetric();
+  //设置从哪个点发出来的
+  void SetNodeId(uint32_t nodeid);
+  uint32_t GetNodeId();
 
 private:
   Packet (const Buffer &buffer, const ByteTagList &byteTagList, 
@@ -585,6 +601,12 @@ private:
 
   /* Please see comments above about nix-vector */
   Ptr<NixVector> m_nixVector;
+
+  uint32_t m_CE; //²âÊÔÓµÈû³Ì¶È
+  uint32_t m_LBTag;// ²âÊÔµÄÊÇÄÄÌõÂ·
+  uint32_t m_FBPath;//ÉÓ´ø»ØµÄÊÇÄÄÌõÂ·
+  uint32_t m_FBMetric; //½ÓÊÜÓµÈû³Ì¶È
+  uint32_t m_nodeid; //设置从哪个点来
 
   static uint32_t m_globalUid;
 };
