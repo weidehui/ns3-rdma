@@ -226,7 +226,7 @@ protected:
 
 private:
   /// Set to true if packets are randomly routed among ECMP; set to false for using only one route consistently
-  bool m_randomEcmpRouting;
+  bool m_CONGARouting;
   /// Set to true if flows are randomly routed among ECMP; set to false for using only one route consistently
   bool m_flowEcmpRouting;
   /// Set to true if this interface should respond to interface events by globallly recomputing routes 
@@ -247,6 +247,7 @@ private:
   // - Ptr<Ipv4Route> LookupGlobal (Ipv4Address dest, Ptr<NetDevice> oif = 0);
   uint32_t GetTupleValue (const Ipv4Header &header, Ptr<const Packet> ipPayload);
   Ptr<Ipv4Route> LookupGlobal (const Ipv4Header &header, Ptr<const Packet> ipPayload, Ptr<NetDevice> oif = 0);
+  Ptr<Ipv4Route> LookupGlobal (Ptr<Packet> p,Ipv4Address dest, Ptr<NetDevice> oif = 0);
 
   HostRoutes m_hostRoutes;
   NetworkRoutes m_networkRoutes;
@@ -254,6 +255,19 @@ private:
   
   
   Ptr<Ipv4> m_ipv4;
+
+  int m_n=3;
+  int **forwardtb;
+  /*int **forwardtb=new int *[m_n];
+  //int i;
+  for(int i=0; i<m_n; i++ ){
+    forwardtb[i]=new int[m_n];
+    for(int j=0;j<m_n;j++){
+      forwardtb[i][j]=0;
+    }
+  }*/
+  int **cachetb;
+  int *flagiter;
 };
 
 } // Namespace ns3
