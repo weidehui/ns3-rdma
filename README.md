@@ -109,3 +109,18 @@ less. That said, all of them are quite relevant:
 *RDMA over Commodity Ethernet at Scale*, SIGCOMM'16 (discussed go-back-to-N)
 
 *Deadlocks in Datacenter Networks: Why Do They Form, and How to Avoid Them*, HotNets'16 (PFC deadlock analysis, directly used this simulator.)
+
+
+## 样例
+![](https://www.processon.com/diagraming/5b76a131e4b025cf494ad4a9)  
+
+可以使用
+Config::SetDefault("ns3::Ipv4GlobalRouting::CONGARouting",     BooleanValue(true)); 
+来开启CONGA，启用那几个取决于写的位置，这句代码以下的交换机都会开启CONGA。
+
+可以使用
+Config::SetDefault("ns3::Ipv4GlobalRouting::Number",  UintegerValue(0) ); 
+来设置叶交换机的个数，默认是三个，我这程序写的是三个
+
+LogComponentEnable ("UdpEchoClientApplication", LOG_LEVEL_INFO);
+这种语句可以查看日志，更改名字即可查看，逗号后面是查看级别
