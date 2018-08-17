@@ -112,7 +112,7 @@ less. That said, all of them are quite relevant:
 
 
 ## 样例
-![](https://www.processon.com/diagraming/5b76a131e4b025cf494ad4a9)  
+![](https://github.com/weidehui/ns3-rdma/blob/CONGA2/img-folder/%E7%BD%91%E7%BB%9C%E6%8B%93%E6%89%91%E5%9B%BE.png)  
 
 可以使用
 Config::SetDefault("ns3::Ipv4GlobalRouting::CONGARouting",     BooleanValue(true)); 
