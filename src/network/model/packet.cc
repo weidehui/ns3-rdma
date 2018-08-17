@@ -136,7 +136,12 @@ Packet::Packet ()
      * global UID
      */
     m_metadata (static_cast<uint64_t> (Simulator::GetSystemId ()) << 32 | m_globalUid, 0),
-    m_nixVector (0)
+    m_nixVector (0),
+    m_CE(0),
+    m_LBTag(0),
+    m_FBPath(0),
+    m_FBMetric(0),
+    m_nodeid(0)
 {
   m_globalUid++;
 }
@@ -178,7 +183,12 @@ Packet::Packet (uint32_t size)
      * global UID
      */
     m_metadata (static_cast<uint64_t> (Simulator::GetSystemId ()) << 32 | m_globalUid, size),
-    m_nixVector (0)
+    m_nixVector (0),
+    m_CE(0),
+    m_LBTag(0),
+    m_FBPath(0),
+    m_FBMetric(0), 
+    m_nodeid(0)
 {
   m_globalUid++;
 }
@@ -187,7 +197,12 @@ Packet::Packet (uint8_t const *buffer, uint32_t size, bool magic)
     m_byteTagList (),
     m_packetTagList (),
     m_metadata (0,0),
-    m_nixVector (0)
+    m_nixVector (0),
+    m_CE(0),
+    m_LBTag(0),
+    m_FBPath(0),
+    m_FBMetric(0), //¶Ô¼ÓÈëµÄ±äÁ¿½øÐÐ³õÊ¼»¯
+    m_nodeid(0)
 {
   NS_ASSERT (magic);
   Deserialize (buffer, size);
@@ -204,7 +219,12 @@ Packet::Packet (uint8_t const*buffer, uint32_t size)
      * global UID
      */
     m_metadata (static_cast<uint64_t> (Simulator::GetSystemId ()) << 32 | m_globalUid, size),
-    m_nixVector (0)
+    m_nixVector (0),
+    m_CE(0),
+    m_LBTag(0),
+    m_FBPath(0),
+    m_FBMetric(0), //¶Ô¼ÓÈëµÄ±äÁ¿½øÐÐ³õÊ¼»¯
+    m_nodeid(0)
 {
   m_globalUid++;
   m_buffer.AddAtStart (size);
@@ -218,7 +238,12 @@ Packet::Packet (const Buffer &buffer,  const ByteTagList &byteTagList,
     m_byteTagList (byteTagList),
     m_packetTagList (packetTagList),
     m_metadata (metadata),
-    m_nixVector (0)
+    m_nixVector (0),
+    m_CE(0),
+    m_LBTag(0),
+    m_FBPath(0),
+    m_FBMetric(0), //¶Ô¼ÓÈëµÄ±äÁ¿½øÐÐ³õÊ¼»¯
+    m_nodeid(0)
 {
 }
 
@@ -900,9 +925,45 @@ std::ostream& operator<< (std::ostream& os, const Packet &packet)
 template <>
 Ptr<Packet> Create (uint32_t a1)
 {
-	//std::cout<<a1<<"\n";
-	return Ptr<Packet> (new Packet (a1), false);
+  //std::cout<<a1<<"\n";
+  return Ptr<Packet> (new Packet (a1), false);
 }
 
+//ÉèÖÃÂ·ÉÏµÄÓµÈû³Ì¶È
+void Packet::SetCE(float cost)
+{
+  m_CE=cost;
+}
+//»ñÈ¡ÓµÈû³Ì¶È
+float Packet::GetCE()
+{
+  return m_CE;
+}
+
+void Packet::SetFBPath(uint32_t Path){
+  m_FBPath=Path;
+}
+uint32_t Packet::GetFBPath(){
+  return m_FBPath;
+}
+void Packet::SetFBMetric(float Metric){
+  m_FBMetric=Metric;
+}
+float Packet::GetFBMetric(){
+  return m_FBMetric;
+}
+void Packet::SetLBTag(uint32_t LBTag){
+  m_LBTag=LBTag;
+}
+uint32_t Packet::GetLBTag(){
+  return m_LBTag;
+}
+//设置从哪个点来；
+void Packet::SetNodeId(uint32_t nodeid){
+  m_nodeid=nodeid;
+}
+uint32_t Packet::GetNodeId(){
+  return m_nodeid;
+}
 
 } // namespace ns3
