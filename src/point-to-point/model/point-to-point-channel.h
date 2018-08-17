@@ -91,6 +91,7 @@ public:
    * \returns Ptr to NetDevice requested
    */
   virtual Ptr<NetDevice> GetDevice (uint32_t i) const;
+  void dretimer();
 
 protected:
   /*
@@ -127,6 +128,7 @@ private:
 
   Time          m_delay;
   int32_t       m_nDevices;
+  float         CECount;
 
   /**
    * The trace source for the packet transmission animation events that the 
